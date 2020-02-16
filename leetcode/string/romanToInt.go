@@ -56,6 +56,7 @@ func RtoI(s rune) int {
 }
 
 // 罗马字符里的特殊规则，
+// switch/case don't need break
 func SpecialRule(pre, post rune) (r bool) {
 	//r=false
 
@@ -64,19 +65,14 @@ func SpecialRule(pre, post rune) (r bool) {
 		if post == 'V' || post == 'X' {
 			r = true
 		}
-		break
 	case 'X':
 		if post == 'L' || post == 'C' {
 			r = true
 		}
-		break
 	case 'C':
 		if post == 'D' || post == 'M' {
 			r = true
 		}
-		break
-	default:
-		break
 	}
 
 	return

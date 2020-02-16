@@ -70,11 +70,8 @@ func Merge(nums1 []int, m int, nums2 []int, n int) {
 func Rotate(nums []int, k int) {
 	L := len(nums)
 	k = k % L
-	var temp int
 	for i := 0; i < L/2; i++ {
-		temp = nums[i]
-		nums[i] = nums[L-i-1]
-		nums[L-i-1] = temp
+		nums[i], nums[L-i-1] = nums[L-i-1], nums[i]
 	}
 	reverse(nums, 0, k)
 	reverse(nums, k, L)
@@ -83,11 +80,8 @@ func Rotate(nums []int, k int) {
 }
 func reverse(nums []int, start, end int) {
 	L := end - start
-	var temp int
 	for i := 0; i < L/2; i++ {
-		temp = nums[i+start]
-		nums[i+start] = nums[end-i-1]
-		nums[end-i-1] = temp
+		nums[i+start], nums[end-i-1] = nums[end-i-1], nums[i+start]
 	}
 }
 
