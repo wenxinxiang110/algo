@@ -1,39 +1,42 @@
 package leetcode
 
+import "errors"
+
+var (
+	StackEmptyError = errors.New("MyStack is empty")
+)
+
 type Stack interface {
-	GetTop() int
-	Pop() int
-	Push(int)
+	GetTop() (interface{}, error)
+	Pop() (interface{}, error)
+	Push(interface{})
 	IsEmpty() bool
 }
 
-type stack struct {
-	Elem []int
-	Top  int
+type MyStack struct {
+	Elem []interface{}
 }
 
-func (s *stack) GetTop() int {
-	if s.Top >= 0 {
-		return s.Elem[s.Top]
+func (s *MyStack) GetTop() (interface{}, error) {
+	if l := len(s.Elem); l > 0 {
+		return s.Elem[l-1], nil
 	}
-	return -1
+	return nil, StackEmptyError
 }
 
-func (s *stack) Pop() (res int) {
-	if s.Top >= 0 {
-		res = s.Elem[s.Top]
-		s.Top--
-		s.Elem = s.Elem[:len(s.Elem)-1]
+func (s *MyStack) Pop() (res interface{}, err error) {
+	if l := len(s.Elem); l > 0 {
+		res = s.Elem[l-1]
+		s.Elem = s.Elem[:l-1]
 		return
 	}
-	return -1
+	return nil, StackEmptyError
 }
 
-func (s *stack) Push(num int) {
-	s.Top++
+func (s *MyStack) Push(num interface{}) {
 	s.Elem = append(s.Elem, num)
 }
 
-func (s *stack) IsEmpty() bool {
-	return s.Top < 0
+func (s *MyStack) IsEmpty() bool {
+	return len(s.Elem) == 0
 }
