@@ -16,32 +16,13 @@ func deleteDuplicates(head *ListNode) *ListNode {
 	// 迭代器
 	iter := head
 
-	// 当前节点的值
-	curVal := 0
-
-	// 上一个节点的地址
-	var perNode *ListNode = nil
-
-	if head != nil {
-		curVal = head.Val
-		perNode = iter
-		iter = iter.Next
-	}
-
-	for ; iter != nil; iter = iter.Next {
-
-		// 如果是重复节点，跳过重复节点，连接到重复节点的下一个节点
-		if iter.Val == curVal {
-			perNode.Next = iter.Next
-			continue
+	for iter != nil && iter.Next != nil {
+		if iter.Val == iter.Next.Val {
+			iter.Next = iter.Next.Next
+		} else {
+			iter = iter.Next
 		}
-
-		// 如果不是重复节点,更新当前值用于判断下一个节点是否重复
-		curVal = iter.Val
-		perNode = iter
-
 	}
 
 	return head
-
 }
