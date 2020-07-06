@@ -1,6 +1,7 @@
 package listnode
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -54,7 +55,7 @@ func TestParseListNode(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := ParseListNode(tt.args.exp, tt.args.spt); !Equal(got, tt.want) {
+			if got := ParseListNode(tt.args.exp, tt.args.spt); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("ParseListNode() = %v, want %v", got, tt.want)
 			}
 		})
