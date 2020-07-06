@@ -10,20 +10,23 @@ Directory：
 |-- README.md
 |-- go.mod
 |-- go.sum
-|-- img/
-|   `-- img.go
-|-- leetcode/
-|   |-- array/
+|-- leetcode
+|   |-- array
 |   |   |-- duplicate.go
 |   |   |-- easy.go
 |   |   |-- max_profit.go
 |   |   `-- move_in_situ.go
-|   |-- dp/
+|   |-- dp
 |   |   |-- climbStairs.go
 |   |   `-- maxSubArray.go
+|   |-- listnode
+|   |   |-- deleteDuplicates.go
+|   |   |-- deleteDuplicates_test.go
+|   |   |-- list_node.go
+|   |   `-- list_node_test.go
 |   |-- listnode.go
 |   |-- stack.go
-|   |-- string/
+|   |-- string
 |   |   |-- addBinary.go
 |   |   |-- addBinary_test.go
 |   |   |-- canConstruct.go
@@ -36,11 +39,11 @@ Directory：
 |   |   |-- reverseVowels_test.go
 |   |   |-- romanToInt.go
 |   |   |-- strStr.go
+|   |   |-- strStr_test.go
 |   |   `-- string_test.go
 |   `-- treenode.go
-|-- main.go
-`-- output/
-    `-- output.go
+`-- main.go
+
 
 6 directories, 28 files
 ```
