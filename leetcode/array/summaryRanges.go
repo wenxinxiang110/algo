@@ -1,7 +1,6 @@
 package array
 
 import (
-	"fmt"
 	"strconv"
 )
 
@@ -49,27 +48,21 @@ func summaryRanges(nums []int) []string {
 
 	res := make([]string, 0)
 	startIdx, endIdx := 0, 0
-	for i := 1; i < len(nums); i++ {
-		// 如果连续，更新endIdx
-		if nums[i] <= nums[endIdx]+1 {
-			endIdx = i
+	// 不需要额外的i指针了
+	for endIdx < len(nums) {
+		// 仍然是连续区间
+		if endIdx < len(nums)-1 && nums[endIdx+1] <= nums[endIdx]+1 {
+			endIdx++
 			continue
 		}
-		// 如果不连续
-		var rangeStr string
-		if nums[endIdx] == nums[startIdx] {
-			rangeStr = strconv.Itoa(nums[endIdx])
-		} else {
-			rangeStr = fmt.Sprintf("%d->%d", nums[startIdx], nums[endIdx])
+		//	已经不是连续区间了
+		rangeStr := strconv.Itoa(nums[startIdx])
+		if endIdx != startIdx {
+			rangeStr = rangeStr + "->" + strconv.Itoa(nums[endIdx])
 		}
 		res = append(res, rangeStr)
-		//	更新idx
-		startIdx, endIdx = i, i
-	}
-	if nums[endIdx] == nums[startIdx] {
-		res = append(res, strconv.Itoa(nums[endIdx]))
-	} else {
-		res = append(res, fmt.Sprintf("%d->%d", nums[startIdx], nums[endIdx]))
+		endIdx++
+		startIdx = endIdx
 	}
 
 	return res
