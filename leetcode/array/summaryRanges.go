@@ -42,20 +42,15 @@ import (
 //输入：nums = [0]
 //输出：["0"]
 func summaryRanges(nums []int) []string {
-	if len(nums) <= 0 {
-		return []string{}
-	}
-
-	res := make([]string, 0)
+	res := make([]string, 0, len(nums))
 	startIdx, endIdx := 0, 0
-	// 不需要额外的i指针了
 	for endIdx < len(nums) {
 		// 仍然是连续区间
 		if endIdx < len(nums)-1 && nums[endIdx+1] <= nums[endIdx]+1 {
 			endIdx++
 			continue
 		}
-		//	已经不是连续区间了
+		//	已经不是连续区间 or 遍历到数组尾部了
 		rangeStr := strconv.Itoa(nums[startIdx])
 		if endIdx != startIdx {
 			rangeStr = rangeStr + "->" + strconv.Itoa(nums[endIdx])
