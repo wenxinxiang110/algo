@@ -57,7 +57,7 @@ func IsMirrorRecursive(root1 *TreeNode, root2 *TreeNode) bool {
 }
 
 /**
- * 递归检查两颗树是否镜像对称
+ * 迭代检查两颗树是否镜像对称
  * todo:醉了，连个正常点的队列都没有，不会整
  *
  * param: *TreeNode root1 第一颗树根节点
