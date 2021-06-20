@@ -20,14 +20,13 @@ func firstUniqChar(s string) int {
 func firstUniqCharDoubleRange(s string) int {
 	// unique标记每个字符初始出现时候的索引
 	var unique = [26]int{}
-	array := []rune(s)
 
-	for i := 0; i < len(array); i++ {
-		unique[array[i]-'a']++
+	for i := 0; i < len(s); i++ {
+		unique[s[i]-'a']++
 	}
 
-	for i := 0; i < len(array); i++ {
-		if unique[array[i]-'a'] == 1 {
+	for i := 0; i < len(s); i++ {
+		if unique[s[i]-'a'] == 1 {
 			return i
 		}
 	}
