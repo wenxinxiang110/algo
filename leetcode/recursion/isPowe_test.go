@@ -56,31 +56,31 @@ func Test_isPowerOfThree(t *testing.T) {
 		args int
 		want bool
 	}{
-		{
-			"",
-			1,
-			true,
-		},
+		//{
+		//	"",
+		//	1,
+		//	true,
+		//},
 		{
 			"",
 			27,
 			true,
 		},
-		{
-			"",
-			0,
-			false,
-		},
-		{
-			"",
-			9,
-			true,
-		},
-		{
-			"",
-			45,
-			false,
-		},
+		//{
+		//	"",
+		//	0,
+		//	false,
+		//},
+		//{
+		//	"",
+		//	9,
+		//	true,
+		//},
+		//{
+		//	"",
+		//	45,
+		//	false,
+		//},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

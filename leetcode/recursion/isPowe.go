@@ -1,5 +1,30 @@
 package recursion
 
+import (
+	"math"
+)
+
+// IsPowerOf 判断n是否为power的整数次幂, 通用解法
+func IsPowerOf(n int, power int) bool {
+	if n <= 0 {
+		return false
+	}
+	for n%power == 0 {
+		n /= power
+	}
+	return n == 1
+}
+
+// isPowerOfLog 通用计算方法2: 通过换底公式推导,要处理float64精度问题，暂时没搞好
+func isPowerOfLog(n, power int) bool {
+	return math.Mod(math.Log(float64(n))/math.Log(float64(power))+math.SmallestNonzeroFloat64, 1.0) <= 2*math.SmallestNonzeroFloat64
+}
+
+// IsPowerOfByPrimeNumber n的最大值为math.MaxInt32, power为质数,通过计算power在这个领域的最大值来计算是否合适
+func IsPowerOfByPrimeNumber(n, power int) bool {
+	return n > 0 && int(math.Pow(float64(power), math.Round(math.Log(math.MaxInt32)/math.Log(float64(power)))))%n == 0
+}
+
 //给你一个整数 n，请你判断该整数是否是 2 的幂次方。如果是，返回 true ；否则，返回 false 。
 //示例 1：
 //
@@ -37,16 +62,5 @@ func isPowerOfTwo(n int) bool {
 
 //给定一个整数，写一个函数来判断它是否是 3的幂次方。如果是，返回 true ；否则，返回 false 。
 func isPowerOfThree(n int) bool {
-	return IsPowerOf(n, 3)
-}
-
-// IsPowerOf 判断n是否为power的整数次幂
-func IsPowerOf(n int, power int) bool {
-	if n <= 0 {
-		return false
-	}
-	for n%power == 0 {
-		n /= power
-	}
-	return n == 1
+	return IsPowerOfByPrimeNumber(n, 3)
 }
