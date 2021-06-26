@@ -1,5 +1,9 @@
 package recursion
 
+import (
+	"math"
+)
+
 //给你一个整数 n，请你判断该整数是否是 2 的幂次方。如果是，返回 true ；否则，返回 false 。
 //示例 1：
 //
@@ -27,12 +31,45 @@ package recursion
 //提示：
 //
 //-2^31 <= n <= 2^31 - 1
-
 func isPowerOfTwo(n int) bool {
 	// 其实就是统计2进制表示下，是否只有一位为1
 	// n&(n-1)会移除最后一位1
 	// n&(-n)会保留最后一位1
 	return n > 0 && (n&(n-1)) == 0
 	//return n > 0 && (n&(-n)) == n
+}
 
+//给定一个整数，写一个函数来判断它是否是 3的幂次方。如果是，返回 true ；否则，返回 false 。
+//
+//整数 n 是 3 的幂次方需满足：存在整数 x 使得 n == 3x
+//示例 1：
+//
+//输入：n = 27
+//输出：true
+//示例 2：
+//
+//输入：n = 0
+//输出：false
+//示例 3：
+//
+//输入：n = 9
+//输出：true
+//示例 4：
+//
+//输入：n = 45
+//输出：false
+func isPowerOfThree(n int) bool {
+	if n <= 0 {
+		return false
+	}
+	for i := 0; ; i++ {
+		res := int(math.Pow(3, float64(i)))
+		if res == n {
+			return true
+		} else if res > n {
+			return false
+		} else if res < n {
+			//	do nothing
+		}
+	}
 }
