@@ -29,17 +29,10 @@ package recursion
 //-2^31 <= n <= 2^31 - 1
 
 func isPowerOfTwo(n int) bool {
-	if n <= 0 {
-		return false
-	}
 	// 其实就是统计2进制表示下，是否只有一位为1
-	count := 0
-	for n != 0 {
-		count += n % 2
-		if count > 1 {
-			return false
-		}
-		n /= 2
-	}
-	return true
+	// n&(n-1)会移除最后一位1
+	// n&(-n)会保留最后一位1
+	return n > 0 && (n&(n-1)) == 0
+	//return n > 0 && (n&(-n)) == n
+
 }
