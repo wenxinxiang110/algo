@@ -56,36 +56,78 @@ func Test_isPowerOfThree(t *testing.T) {
 		args int
 		want bool
 	}{
-		//{
-		//	"",
-		//	1,
-		//	true,
-		//},
+		{
+			"",
+			1,
+			true,
+		},
 		{
 			"",
 			27,
 			true,
 		},
-		//{
-		//	"",
-		//	0,
-		//	false,
-		//},
-		//{
-		//	"",
-		//	9,
-		//	true,
-		//},
-		//{
-		//	"",
-		//	45,
-		//	false,
-		//},
+		{
+			"",
+			0,
+			false,
+		},
+		{
+			"",
+			9,
+			true,
+		},
+		{
+			"",
+			45,
+			false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := isPowerOfThree(tt.args); got != tt.want {
 				t.Errorf("isPowerOfThree(%d) = %v, want %v", tt.args, got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_isPowerOfFour(t *testing.T) {
+
+	tests := []struct {
+		name string
+		args int
+		want bool
+	}{
+		{
+			"",
+			16,
+			true,
+		},
+		{
+			"",
+			5,
+			false,
+		},
+		{
+			"",
+			0,
+			false,
+		},
+		{
+			"",
+			1,
+			true,
+		},
+		{
+			"",
+			45,
+			false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isPowerOfFour(tt.args); got != tt.want {
+				t.Errorf("isPowerOfFour() = %v, want %v", got, tt.want)
 			}
 		})
 	}
