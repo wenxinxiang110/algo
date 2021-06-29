@@ -13,17 +13,13 @@ package string
 //s 和 t 只包含小写字母
 
 func findTheDifference(s string, t string) byte {
-	var sMap [26]uint32
+	var ret int32 = 0
 
 	for _, i := range s {
-		sMap[i-'a']++
+		ret ^= i
 	}
 	for _, i := range t {
-		if sMap[i-'a'] <= 0 {
-			return byte(i)
-		} else {
-			sMap[i-'a']--
-		}
+		ret ^= i
 	}
-	return 0
+	return byte(ret)
 }
