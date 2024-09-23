@@ -97,3 +97,27 @@ Directory：
 ```
 
 ref: https://github.com/youngyangyang04/leetcode-master?tab=readme-ov-file
+
+
+## 常用操作
+
+### 取数值各个位上的单数
+
+```go
+func IterDigest(n int, do func(digest int)) {
+	for n != 0 {
+		do(n % 10)
+		n /= 10
+	}
+}
+```
+
+例如,取数值各个位上的单数之和:
+```go
+func getSum(n int) (sum int) {
+	iterDigest(n, func(digest int) {
+		sum += digest * digest
+	})
+	return
+}
+```
