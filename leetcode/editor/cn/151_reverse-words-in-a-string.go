@@ -1,5 +1,10 @@
 package main
 
+import (
+	"slices"
+	"strings"
+)
+
 //给你一个字符串 s ，请你反转字符串中 单词 的顺序。
 //
 // 单词 是由非空格字符组成的字符串。s 中使用至少一个空格将字符串中的 单词 分隔开。
@@ -53,31 +58,54 @@ package main
 // Related Topics 双指针 字符串 👍 1216 👎 0
 
 //leetcode submit region begin(Prohibit modification and deletion)
-import (
-	"slices"
-	"strings"
-)
+
+//func reverse(b []byte) {
+//	for i := 0; i < len(b)/2; i++ {
+//		b[i], b[len(b)-1-i] = b[len(b)-1-i], b[i]
+//	}
+//}
 
 func reverseWords(s string) string {
-	return reverseWordsByStd(s)
+	b := []byte(s)
+
+	// 去除多余空格
+	b = removeExtraSpaces(b)
+
+	// 整体旋转
+	reverse(b)
+	// 按单词旋转
+	var start = 0
+	for end := start + 1; end < len(b); end++ {
+		if b[end] == ' ' {
+			reverse(b[start:end])
+			start = end + 1
+			end = start
+		}
+	}
+	// 最后剩下一段
+	if start < len(b) {
+		reverse(b[start:])
+	}
+
+	return string(b)
 }
 
+// 定义: 前后空格、中间连续多个空格代表多余空格
 func removeExtraSpaces(b []byte) []byte {
 	slow := 0
 	for i := 0; i < len(b); i++ {
-		if b[i] == ' ' {
-			continue
-		}
+		// 判断是否多余空格
 		if b[i] != ' ' {
+			// 如果是开头的单词则不需要手动补0,否则需要手动补
 			if slow != 0 {
 				b[slow] = ' '
 				slow++
 			}
-			for ; b[i] != ' ' && i < len(b); i++ {
-				if slow != i {
-					b[slow] = b[i]
-				}
+			// 保存单词
+			for i < len(b) && b[i] != ' ' {
+				b[slow] = b[i]
 				slow++
+				i++
 			}
 		}
 	}
@@ -112,4 +140,41 @@ func reverseWordsByStd(s string) string {
 	}
 
 	return buf.String()
+}
+
+func mySplitBySpace(s []byte) (after [][]byte) {
+	const sep = ' '
+	var start = 0
+	for start < len(s)-1 {
+		for start != sep {
+			start++
+		}
+		var end = start + 1
+		for end < len(s) && s[end] != sep {
+			end++
+		}
+		if end <= len(s) {
+			after = append(after, s[start:end])
+			start = end
+			continue
+		} else {
+			after = append(after, s[start:len(s)])
+			break
+		}
+	}
+	return
+}
+
+func removeSpaces(b []byte) []byte {
+	slow := 0
+	for i := 0; i < len(b); i++ {
+		// 判断是否多余空格
+		if b[i] != ' ' {
+			if i != slow {
+				b[slow] = b[i]
+			}
+			slow++
+		}
+	}
+	return b[:slow]
 }
