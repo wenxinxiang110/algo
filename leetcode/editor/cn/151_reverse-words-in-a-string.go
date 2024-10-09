@@ -75,16 +75,12 @@ func reverseWords(s string) string {
 	reverse(b)
 	// 按单词旋转
 	var start = 0
-	for end := start + 1; end < len(b); end++ {
-		if b[end] == ' ' {
+	for end := start + 1; end <= len(b); end++ {
+		if end == len(b) || b[end] == ' ' {
 			reverse(b[start:end])
 			start = end + 1
 			end = start
 		}
-	}
-	// 最后剩下一段
-	if start < len(b) {
-		reverse(b[start:])
 	}
 
 	return string(b)
