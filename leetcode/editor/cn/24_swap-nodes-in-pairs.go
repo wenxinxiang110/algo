@@ -48,16 +48,7 @@ func swapPairs(head *ListNode) *ListNode {
 	var iter = &ListNode{Next: head}
 	var newHead = iter
 	for iter.Next != nil && iter.Next.Next != nil {
-		// 需要先保持 iter.next
-		tmp := iter.Next
-		iter.Next = iter.Next.Next
-		// 保存下一波节点
-		tmp2 := iter.Next.Next
-		iter.Next.Next = tmp
-		tmp.Next = tmp2
-		iter = tmp
-
-		//iter, iter.Next, iter.Next.Next = iter.Next.Next, iter.Next.Next, iter.Next
+		iter, iter.Next, iter.Next.Next, iter.Next.Next.Next = iter.Next, iter.Next.Next, iter.Next.Next.Next, iter.Next
 	}
 	return newHead.Next
 }
