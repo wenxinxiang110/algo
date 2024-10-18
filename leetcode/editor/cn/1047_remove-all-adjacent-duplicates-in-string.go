@@ -33,23 +33,19 @@ package main
 func removeDuplicates(s string) string {
 	//type stack []byte
 	b := []byte(s)
-	var slow, fast = 0, 1
-	for fast < len(b) {
+	var stackTop, iter = 0, 1
+	for ; iter < len(b); iter++ {
 		// 1. getTop, not top, push into
 
-		// if top == b[fast] ,pop from stack
-		if slow >= 0 && b[slow] == b[fast] {
-			slow--
-			fast++
-			continue
+		// if top == b[iter] ,pop from stack
+		if stackTop >= 0 && b[stackTop] == b[iter] {
+			stackTop--
 		} else {
-			slow++
-			b[slow] = b[fast]
-			fast++
-			continue
+			stackTop++
+			b[stackTop] = b[iter]
 		}
 	}
-	return string(b[:slow+1])
+	return string(b[:stackTop+1])
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
