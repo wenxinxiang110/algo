@@ -1,10 +1,6 @@
 package main
 
-import (
-	"testing"
-)
-
-func Test_removeDuplicates(t *testing.T) {
+/*func Test_removeDuplicates(t *testing.T) {
 	type args struct {
 		nums []int
 	}
@@ -37,4 +33,4 @@ func Test_removeDuplicates(t *testing.T) {
 			}
 		})
 	}
-}
+}*/

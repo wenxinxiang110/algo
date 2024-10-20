@@ -59,19 +59,19 @@ package main
 // Related Topics 数组 双指针 👍 3639 👎 0
 
 // leetcode submit region begin(Prohibit modification and deletion)
-func removeDuplicates(nums []int) int {
-	var pre = 1
-	for next := 1; next < len(nums); next++ {
-		if nums[next] == nums[next-1] {
-			continue
-		} else {
-			if next != pre {
-				nums[pre] = nums[next]
-			}
-			pre++
-		}
-	}
-	return pre
-}
+//func removeDuplicates(nums []int) int {
+//	var pre = 1
+//	for next := 1; next < len(nums); next++ {
+//		if nums[next] == nums[next-1] {
+//			continue
+//		} else {
+//			if next != pre {
+//				nums[pre] = nums[next]
+//			}
+//			pre++
+//		}
+//	}
+//	return pre
+//}
 
 //leetcode submit region end(Prohibit modification and deletion)
