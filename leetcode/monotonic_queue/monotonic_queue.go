@@ -9,7 +9,7 @@ import (
 type Queue[T cmp.Ordered] interface {
 	// Push 添加元素 val
 	Push(val T)
-	// Pop 如果队尾元素是 val 则删除
+	// Pop 如果队头元素是 val 则删除
 	Pop(val T)
 	// Max 返回队列中最大的元素
 	Max() T
@@ -31,8 +31,8 @@ func (q *queue[T]) Push(val T) {
 }
 
 func (q *queue[T]) Pop(val T) {
-	if q.List.Back().Value == val {
-		q.List.Remove(q.List.Back())
+	if q.List.Front().Value == val {
+		q.List.Remove(q.List.Front())
 	}
 }
 

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"container/list"
+
 	"github.com/NothingXiang/algo/leetcode/monotonic_queue"
 )
 
@@ -48,6 +50,38 @@ import (
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func maxSlidingWindow(nums []int, k int) []int {
+	if len(nums) == 1 {
+		return nums
+	}
+	//先将前k的元素放入队列
+	var queue = list.New()
+	for i := 0; i < k; i++ {
+		// 将队首元素移除 替换queue.Push(nums[i])
+		for queue.Back() != nil && queue.Back().Value.(int) < nums[i] {
+			queue.Remove(queue.Back())
+		}
+		queue.PushBack(nums[i])
+	}
+	res := []int{queue.Front().Value.(int)}
+
+	for i := k; i < len(nums); i++ {
+		// 将队首元素移除 替换queue.Pop(nums[i-k])
+		if queue.Front().Value.(int) == nums[i-k] {
+			queue.Remove(queue.Front())
+		}
+
+		// 添加到队尾 替换 queue.Push(nums[i])
+		for queue.Back() != nil && queue.Back().Value.(int) < nums[i] {
+			queue.Remove(queue.Back())
+		}
+		queue.PushBack(nums[i])
+
+		res = append(res, queue.Front().Value.(int))
+	}
+	return res
+}
+
+func maxV1(nums []int, k int) []int {
 	if len(nums) == 1 {
 		return nums
 	}
