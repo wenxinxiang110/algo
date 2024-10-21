@@ -1,4 +1,4 @@
-package list
+package list_node
 
 import (
 	"reflect"
@@ -13,7 +13,7 @@ func TestParseListNode(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want *ListNode
+		want *ListNode[int]
 	}{
 		{
 			"nil",
@@ -29,11 +29,11 @@ func TestParseListNode(t *testing.T) {
 				exp: "1->1->2",
 				spt: "->",
 			},
-			&ListNode{
+			&ListNode[int]{
 				Val: 1,
-				Next: &ListNode{
+				Next: &ListNode[int]{
 					Val:  1,
-					Next: &ListNode{Val: 2},
+					Next: &ListNode[int]{Val: 2},
 				},
 			},
 		},
@@ -43,15 +43,15 @@ func TestParseListNode(t *testing.T) {
 				exp: "1->1->2->3->3",
 				spt: "->",
 			},
-			&ListNode{
+			&ListNode[int]{
 				Val: 1,
-				Next: &ListNode{
+				Next: &ListNode[int]{
 					Val: 1,
-					Next: &ListNode{
+					Next: &ListNode[int]{
 						Val: 2,
-						Next: &ListNode{
+						Next: &ListNode[int]{
 							Val: 3,
-							Next: &ListNode{
+							Next: &ListNode[int]{
 								Val:  3,
 								Next: nil,
 							},

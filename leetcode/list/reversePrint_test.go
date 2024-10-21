@@ -2,6 +2,8 @@ package list
 
 import (
 	"testing"
+
+	"github.com/NothingXiang/algo/leetcode/list_node"
 )
 
 func Test_reverseList(t *testing.T) {
@@ -29,7 +31,7 @@ func Test_reverseList(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := reverseList(tt.args); !Equal(got, tt.want) {
+			if got := reverseList(tt.args); !list_node.Equal(got, tt.want) {
 				t.Errorf("reverseList() = %v, want %v", got, tt.want)
 			}
 		})
