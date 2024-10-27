@@ -47,12 +47,12 @@ package main
 // leetcode submit region begin(Prohibit modification and deletion)
 func minCostClimbingStairs(cost []int) int {
 	top := len(cost) + 1
-	dp := make([]int, top)
-	dp[0], dp[1] = 0, 0
+	// 优化
+	p, q := 0, 0
 	for i := 2; i < top; i++ {
-		dp[i] = min(dp[i-1]+cost[i-1], dp[i-2]+cost[i-2])
+		p, q = q, min(p+cost[i-2], q+cost[i-1])
 	}
-	return dp[top-1]
+	return q
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
