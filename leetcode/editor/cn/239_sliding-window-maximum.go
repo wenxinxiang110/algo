@@ -62,7 +62,8 @@ func maxSlidingWindow(nums []int, k int) []int {
 		}
 		queue.PushBack(nums[i])
 	}
-	res := []int{queue.Front().Value.(int)}
+	res := make([]int, len(nums)-k+1)
+	res[0] = queue.Front().Value.(int)
 
 	for i := k; i < len(nums); i++ {
 		// 将队首元素移除 替换queue.Pop(nums[i-k])
@@ -76,10 +77,12 @@ func maxSlidingWindow(nums []int, k int) []int {
 		}
 		queue.PushBack(nums[i])
 
-		res = append(res, queue.Front().Value.(int))
+		res[i-k+1] = queue.Front().Value.(int)
 	}
 	return res
 }
+
+//leetcode submit region end(Prohibit modification and deletion)
 
 func maxV1(nums []int, k int) []int {
 	if len(nums) == 1 {
@@ -90,13 +93,12 @@ func maxV1(nums []int, k int) []int {
 	for i := 0; i < k; i++ {
 		queue.Push(nums[i])
 	}
-	res := []int{queue.Max()}
+	res := make([]int, len(nums)-k+1)
+	res[0] = queue.Max()
 	for i := k; i < len(nums); i++ {
 		queue.Pop(nums[i-k])
 		queue.Push(nums[i])
-		res = append(res, queue.Max())
+		res[i-k+1] = queue.Max()
 	}
 	return res
 }
-
-//leetcode submit region end(Prohibit modification and deletion)
