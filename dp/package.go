@@ -9,16 +9,10 @@ func BasePackage(items []Item, maxWeight int) (maxValue int) {
 	// 滚动数组实现，用一维数组存储压缩存储
 	// 因为这个背包每次其实只需要读取上一行的数据，所以其实没必要存储整个完整的 dp表格
 	dp := make([]int, maxWeight+1)
-	// 初始化
-	for i := items[0].Weight; i < maxWeight; i++ {
-		dp[i] = items[0].Value
-	}
-	for i := 1; i < len(items); i++ {
+	for i := 0; i < len(items); i++ {
 		// 如果是滚动数组方式的，需要用倒序遍历，避免一个物品重复放入
-		for j := maxWeight; j > 0; j-- {
-			if j >= items[i].Weight {
-				dp[j] = max(dp[j], dp[j-items[i].Weight]+items[i].Value)
-			}
+		for j := maxWeight; j >= items[i].Weight; j-- {
+			dp[j] = max(dp[j], dp[j-items[i].Weight]+items[i].Value)
 		}
 	}
 	//fmt.Println(dp)
