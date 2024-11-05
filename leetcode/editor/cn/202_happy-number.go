@@ -47,11 +47,7 @@ package main
 func isHappy(n int) bool {
 	var record = make(map[int]struct{})
 	for {
-		var sum int
-		for n != 0 {
-			sum += (n % 10) * (n % 10)
-			n /= 10
-		}
+		var sum = getSum(n)
 		if sum == 1 {
 			return true
 		}
