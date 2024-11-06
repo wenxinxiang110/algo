@@ -41,9 +41,9 @@ func canPartition(nums []int) bool {
 	}
 	target := sum / 2
 	dp := make([]int, target+1)
-	for i := 0; i < len(nums); i++ {
-		for j := len(dp) - 1; j >= nums[i]; j-- {
-			dp[j] = max(dp[j], dp[j-nums[i]]+nums[i])
+	for _, num := range nums {
+		for j := len(dp) - 1; j >= num; j-- {
+			dp[j] = max(dp[j], dp[j-num]+num)
 			if j == target && dp[j] == target {
 				return true
 			}
