@@ -67,33 +67,15 @@ func findTargetSumWays(nums []int, target int) int {
 	}
 	pkg := (sum + target) / 2
 
-	dp := make([][]int, len(nums))
+	dp := make([]int, pkg+1)
+	dp[0] = 1
 	for i := 0; i < len(nums); i++ {
-		dp[i] = make([]int, pkg+1)
-	}
-	// 初始化行
-	if nums[0] <= pkg {
-		dp[0][nums[0]] = 1
-	}
-	// 初始化列
-	zeroNums := 0
-	for i := 0; i < len(nums); i++ {
-		if nums[i] == 0 {
-			zeroNums++
-		}
-		dp[i][0] = int(math.Pow(2, float64(zeroNums)))
-	}
-
-	for i := 1; i < len(nums); i++ {
-		for j := 0; j <= pkg; j++ {
-			dp[i][j] = dp[i-1][j]
-			if j >= nums[i] {
-				dp[i][j] += dp[i-1][j-nums[i]]
-			}
+		for j := pkg; j >= nums[i]; j-- {
+			dp[j] += dp[j-nums[i]]
 		}
 	}
 	//fmt.Println(dp)
-	return dp[len(nums)-1][pkg]
+	return dp[pkg]
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
