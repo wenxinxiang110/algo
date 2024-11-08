@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -51,10 +52,6 @@ import (
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func findTargetSumWays(nums []int, target int) int {
-	if len(nums) == 0 {
-		return 0
-	}
-
 	var sum int
 	for _, num := range nums {
 		sum += num
@@ -66,15 +63,15 @@ func findTargetSumWays(nums []int, target int) int {
 		return 0
 	}
 	pkg := (sum + target) / 2
-
+	//fmt.Println("sum:", sum, "pkg:", pkg)
 	dp := make([]int, pkg+1)
 	dp[0] = 1
 	for i := 0; i < len(nums); i++ {
 		for j := pkg; j >= nums[i]; j-- {
 			dp[j] += dp[j-nums[i]]
 		}
+		fmt.Println(dp)
 	}
-	//fmt.Println(dp)
 	return dp[pkg]
 }
 
