@@ -63,21 +63,20 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
+        if len(s) % 2 != 0:
+            return False
+
+        pairs = {
+            '(': ')',
+            '{': '}',
+            '[': ']'
+        }
         stack = []
-        for i in range(len(s)):
-            if s[i] in ['(', '{', '[']:
-                stack.append(s[i])
-            else:
-                if len(stack) == 0:
-                    return False
-                top = stack.pop()
-
-                if ((top == '(' and s[i] != ')') or
-                        (top == '{' and s[i] != '}') or (
-                                top == '[' and s[i] != ']'
-                        )):
-                    return False
-
+        for ch in s:
+            if ch in pairs:
+                stack.append(ch)
+            elif len(stack) == 0 or pairs[stack.pop()] != ch:
+                return False
         return len(stack) == 0
 
 # leetcode submit region end(Prohibit modification and deletion)
