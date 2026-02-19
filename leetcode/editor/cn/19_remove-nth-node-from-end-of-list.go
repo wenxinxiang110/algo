@@ -50,22 +50,22 @@ package main
  *     Next *ListNode
  * }
  */
-func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	// 双指针
-	var fakeHead = &ListNode{Next: head}
-	fast := fakeHead
-	for i := 0; i < n; i++ {
-		fast = fast.Next
-	}
-	slow := fakeHead
-	for fast.Next != nil {
-		slow = slow.Next
-		fast = fast.Next
-	}
-	// 到达位置
-	slow.Next = slow.Next.Next
-	return fakeHead.Next
-
-}
+//func removeNthFromEnd(head *ListNode, n int) *ListNode {
+//	// 双指针
+//	var fakeHead = &ListNode{Next: head}
+//	fast := fakeHead
+//	for i := 0; i < n; i++ {
+//		fast = fast.Next
+//	}
+//	slow := fakeHead
+//	for fast.Next != nil {
+//		slow = slow.Next
+//		fast = fast.Next
+//	}
+//	// 到达位置
+//	slow.Next = slow.Next.Next
+//	return fakeHead.Next
+//
+//}
 
 //leetcode submit region end(Prohibit modification and deletion)
