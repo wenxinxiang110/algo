@@ -56,9 +56,33 @@ package main
  * }
  */
 func mergeKLists(lists []*ListNode) *ListNode {
-	return mergeKListsOneByOne(lists)
+	//
+
+	return mergeKListsSplit(lists)
 }
 
+func mergeTwoLists4mergeKLists(l1, l2 *ListNode) *ListNode {
+	iter := &ListNode{}
+	pre := iter
+	for l1 != nil && l2 != nil {
+		if l1.Val <= l2.Val {
+			iter.Next = l1
+			l1 = l1.Next
+		} else {
+			iter.Next = l2
+			l2 = l2.Next
+		}
+		iter = iter.Next
+	}
+	remind := l1
+	if remind == nil {
+		remind = l2
+	}
+	iter.Next = remind
+	return pre.Next
+}
+
+// 时间复杂度 O(k^2n) ,因为之前已经合并过的链表会被重复遍历
 func mergeKListsOneByOne(lists []*ListNode) *ListNode {
 	if len(lists) == 0 {
 		return nil
@@ -92,6 +116,27 @@ func mergeKListsOneByOne(lists []*ListNode) *ListNode {
 		head = mergeTwoLists(head, lists[i])
 	}
 	return head
+}
+
+// 分治法： 两两往上合并， O(kn*logk)时间，空间 O(logk)
+func mergeKListsSplit(lists []*ListNode) *ListNode {
+	return mergeKListsSplitRecursive(lists)
+}
+
+func mergeKListsSplitRecursive(lists []*ListNode) *ListNode {
+	if len(lists) == 0 {
+		return nil
+	} else if len(lists) == 1 {
+		return lists[0]
+	} else if len(lists) == 2 {
+		return mergeTwoLists4mergeKLists(lists[0], lists[1])
+	} else {
+		mid := len(lists) / 2
+		left := mergeKListsSplitRecursive(lists[:mid])
+		right := mergeKListsSplitRecursive(lists[mid:])
+		return mergeTwoLists4mergeKLists(left, right)
+	}
+
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
