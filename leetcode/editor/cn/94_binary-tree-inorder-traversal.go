@@ -50,7 +50,41 @@ package main
  * }
  */
 func inorderTraversal(root *TreeNode) []int {
-	return inorderTraversalRecursive(root)
+	return inorderLoop(root)
+}
+
+// 非递归实现
+func inorderLoop(root *TreeNode) (res []int) {
+	stack := []*TreeNode{}
+	var pop = func() *TreeNode {
+		if len(stack) == 0 {
+			return nil
+		}
+		last := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		return last
+	}
+
+	for root != nil || len(stack) > 0 {
+		// 先访问左子树
+		for root != nil {
+			stack = append(stack, root)
+			root = root.Left
+		}
+
+		// 再访问中间
+		root = pop()
+		if root != nil {
+			res = append(res, root.Val)
+			root = root.Right
+		}
+		//root = stack[len(stack)-1]
+		//stack = stack[:len(stack)-1]
+		//res = append(res, root.Val)
+		//root = root.Right
+
+	}
+	return
 }
 
 func inorderTraversalRecursive(root *TreeNode) (result []int) {
