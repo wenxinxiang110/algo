@@ -37,7 +37,7 @@ package main
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func largestRectangleArea(heights []int) int {
-	return largestRectangleAreaFocus(heights)
+	return largestRectangleAreaStack(heights)
 }
 
 // 暴力解法
@@ -68,19 +68,50 @@ func largestRectangleAreaStack(height []int) (maxArea int) {
 		return height[0]
 	}
 
-	var stack = []int{0}
-
-	for i := 0; i < len(height); i++ {
-		// 比较栈顶下标对应的
-		if height[stack[len(stack)-1]] > height[i] {
-			pop := stack[len(stack)-1]
-			stack = stack[:len(stack)-1]
-
-			area := height[pop] * (i - pop - 1)
-			maxArea = max(maxArea, area)
-		}
+	var stack = []int{}
+	empty := func() bool {
+		return len(stack) == 0
+	}
+	push := func(i int) {
+		stack = append(stack, i)
+	}
+	pop := func() int {
+		top := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		return top
+	}
+	top := func() int {
+		return stack[len(stack)-1]
 	}
 
+	for i := 0; i < len(height); i++ {
+		// 比较栈顶下标对应的，如果栈顶的位置的矩形高度比现在的高，说明他已经无法延伸，已经找到右边界了
+		for !empty() && height[top()] > height[i] {
+			//
+			length := height[pop()]
+
+			width := i
+			if !empty() {
+				// top此时是左边界
+				width = i - top() - 1
+			}
+			maxArea = max(maxArea, length*width)
+		}
+		// 入栈
+		push(i)
+	}
+
+	// 剩下的元素继续处理
+	for !empty() {
+		length := height[pop()]
+		width := len(height)
+		if !empty() {
+			width = width - top() - 1
+		}
+		maxArea = max(maxArea, length*width)
+	}
+
+	return
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
