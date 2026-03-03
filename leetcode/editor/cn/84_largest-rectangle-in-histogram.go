@@ -37,7 +37,7 @@ package main
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func largestRectangleArea(heights []int) int {
-	return largestRectangleAreaStack(heights)
+	return largestRectangleAreaStackGuard(heights)
 }
 
 // 暴力解法
@@ -109,6 +109,42 @@ func largestRectangleAreaStack(height []int) (maxArea int) {
 			width = width - top() - 1
 		}
 		maxArea = max(maxArea, length*width)
+	}
+
+	return
+}
+
+// 单调栈优化: 加上哨兵
+func largestRectangleAreaStackGuard(height []int) (maxArea int) {
+
+	//size := len(height)
+	// 前后加0
+	height = append([]int{0}, append(height, 0)...)
+	var stack = []int{0}
+
+	push := func(i int) {
+		stack = append(stack, i)
+	}
+	pop := func() int {
+		top := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		return top
+	}
+	top := func() int {
+		return stack[len(stack)-1]
+	}
+
+	for i := 1; i < len(height); i++ {
+		// 比较栈顶下标对应的，如果栈顶的位置的矩形高度比现在的高，说明他已经无法延伸，已经找到右边界了
+		for height[top()] > height[i] {
+			//
+			length := height[pop()]
+
+			width := i - top() - 1
+			maxArea = max(maxArea, length*width)
+		}
+		// 入栈
+		push(i)
 	}
 
 	return
