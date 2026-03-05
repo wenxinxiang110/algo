@@ -42,9 +42,9 @@ package main
 // Related Topics 数组 二分查找 分治 矩阵 👍 1770 👎 0
 
 // leetcode submit region begin(Prohibit modification and deletion)
-func searchMatrix(matrix [][]int, target int) bool {
+/*func searchMatrix(matrix [][]int, target int) bool {
 	return matrixSearchZ(matrix, target)
-}
+}*/
 
 // 使用暴力的方法
 func searchMatrixSlow(matrix [][]int, target int) bool {
