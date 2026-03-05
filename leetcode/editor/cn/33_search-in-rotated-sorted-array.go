@@ -52,6 +52,38 @@ func search(nums []int, target int) int {
 }
 
 func searchRotateK(nums []int, target int) int {
+
+	var left, right = 0, len(nums) - 1
+	for left <= right {
+		mid := (left + right) / 2
+		// 已经找到了
+		if nums[mid] == target {
+			return mid
+		}
+		//没找到，需要从左或者右边的有序序列里搜索
+
+		// 左边有序
+		if nums[left] <= nums[mid] {
+			//且要搜索的值在左边
+			if nums[left] <= target && target < nums[mid] {
+				right = mid - 1
+			} else {
+				left = mid + 1
+			}
+		} else {
+			if nums[mid] < target && target <= nums[right] {
+				left = mid + 1
+			} else {
+				right = mid - 1
+
+			}
+		}
+	}
+	return -1
+}
+
+// 二分查找，但是找 k的时候已经 O(n)了
+func searchRotateKBad(nums []int, target int) int {
 	//	 find k
 	var k int
 	for i := 0; i < len(nums)-1; i++ {
