@@ -39,21 +39,15 @@ package main
 // leetcode submit region begin(Prohibit modification and deletion)
 func partitionLabels(s string) (ans []int) {
 	// charIndex[i]记录每个字符的起始和结束位置
-	charIndex := [26][2]int{}
+	charIndex := [26]int{}
 	for i, c := range s {
-		// 记录每个字符的起始位置
-		if charIndex[c-'a'][1] == 0 {
-			charIndex[c-'a'][0] = i
-		}
 		// 记录每个字符的结束位置
-		charIndex[c-'a'][1] = i
+		charIndex[c-'a'] = i
 	}
 	// 某个区间的开始和结束
 	var start, end = 0, 0
 	for i := 0; i < len(s); i++ {
-		start = min(start, charIndex[s[i]-'a'][0])
-
-		end = max(end, charIndex[s[i]-'a'][1])
+		end = max(end, charIndex[s[i]-'a'])
 
 		// 已经到分片的末尾了,记录分片大小，重置区间
 		if i == end {
