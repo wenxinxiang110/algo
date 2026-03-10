@@ -41,17 +41,13 @@ func rob(nums []int) int {
 		return 0
 	} else if len(nums) == 1 {
 		return nums[0]
-	} else if len(nums) == 2 {
-		return max(nums[0], nums[1])
 	}
 
-	var maxRob = make([]int, len(nums))
-	maxRob[0] = nums[0]
-	maxRob[1] = max(nums[0], nums[1])
+	var prepre, pre = nums[0], max(nums[0], nums[1])
 	for i := 2; i < len(nums); i++ {
-		maxRob[i] = max(maxRob[i-2]+nums[i], maxRob[i-1])
+		prepre, pre = pre, max(prepre+nums[i], pre)
 	}
-	return maxRob[len(maxRob)-1]
+	return pre
 
 }
 
