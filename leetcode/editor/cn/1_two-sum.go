@@ -49,16 +49,47 @@ package main
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func twoSum(nums []int, target int) []int {
+	//m := make(map[int]int, len(nums))
+	//for idx, num := range nums {
+	//	// find target
+	//	nextIdx, ok := m[target-num]
+	//	// has been found, return
+	//	if ok {
+	//		return []int{nextIdx, idx}
+	//	}
+	//	// not found, se into map
+	//	m[num] = idx
+	//}
+	return twoSumHot(nums, target)
+}
+func twoSumHot(nums []int, target int) []int {
+	// 暴力
+	//for i := 0; i < len(nums)-1; i++ {
+	//	for j := i + 1; j < len(nums); j++ {
+	//		if nums[i]+nums[j] == target {func twoSumHot(nums []int, target int) []int {
+	//	// 暴力
+	//	for i := 0; i < len(nums)-1; i++ {
+	//		for j := i + 1; j < len(nums); j++ {
+	//			if nums[i]+nums[j] == target {
+	//				return []int{i, j}
+	//			}
+	//		}
+	//	}
+	//	return nil
+	//}
+	//			return []int{i, j}
+	//		}
+	//	}
+	//}
+
+	// hash
 	m := make(map[int]int, len(nums))
-	for idx, num := range nums {
-		// find target
-		nextIdx, ok := m[target-num]
-		// has been found, return
-		if ok {
-			return []int{nextIdx, idx}
+	for i := 0; i < len(nums); i++ {
+		if twins, ok := m[target-nums[i]]; ok {
+			return []int{twins, i}
+		} else {
+			m[nums[i]] = i
 		}
-		// not found, se into map
-		m[num] = idx
 	}
 	return nil
 }

@@ -48,11 +48,19 @@ func fourSum(nums []int, target int) (result [][]int) {
 	sort.Ints(nums)
 
 	for i := 0; i < len(nums)-3; i++ {
+		// 剪枝
+		if nums[i] > target && nums[i] >= 0 {
+			break
+		}
 		// 去重 a
 		if i > 0 && nums[i] == nums[i-1] {
 			continue
 		}
 		for j := i + 1; j < len(nums)-2; j++ {
+			// 二级剪枝
+			if nums[i]+nums[j] > target && nums[j] >= 0 {
+				break
+			}
 			// 去重 j ?
 			if j > i+1 && nums[j] == nums[j-1] {
 				continue
