@@ -86,6 +86,12 @@ func reverseWords(s string) string {
 	return string(b)
 }
 
+//func reverse(b []byte) {
+//	for i := 0; i < len(b)/2; i++ {
+//		b[i], b[len(b)-1-i] = b[len(b)-1-i], b[i]
+//	}
+//}
+
 // 定义: 前后空格、中间连续多个空格代表多余空格
 func removeExtraSpaces(b []byte) []byte {
 	slow := 0

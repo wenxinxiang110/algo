@@ -59,7 +59,7 @@ package main
 //
 //
 // Related Topics 设计 哈希表 链表 双向链表 👍 3717 👎 0
-
+/*
 // leetcode submit region begin(Prohibit modification and deletion)
 type LRUCache struct {
 	cache map[int]*DoubleListNode
@@ -141,7 +141,7 @@ func (this *LRUCache) Put(key int, value int) {
 		this.length--
 	}
 }
-
+*/
 /**
  * Your LRUCache object will be instantiated and called as such:
  * obj := Constructor(capacity);

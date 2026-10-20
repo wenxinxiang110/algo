@@ -35,9 +35,9 @@ package main
 // Related Topics 数组 数学 矩阵 👍 2194 👎 0
 
 // leetcode submit region begin(Prohibit modification and deletion)
-func rotate(matrix [][]int) {
-	rotateMatrixSpace1(matrix)
-}
+//func rotate(matrix [][]int) {
+//	rotateMatrixSpace1(matrix)
+//}
 
 // 使用On2的空间来旋转数组
 func rotateMatrixCopy(matrix [][]int) {

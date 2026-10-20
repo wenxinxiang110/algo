@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sort"
 )
 
@@ -61,9 +62,9 @@ func combinationSum(candidates []int, target int) (output [][]int) {
 
 	backtrace = func(start int, path []int, target int) {
 		// 目标值小于0，说明当前路径不可行
-		if target < 0 {
-			return
-		}
+		//if target < 0 {
+		//	return
+		//}
 		// 找到合适的组合
 		if target == 0 {
 			output = append(output, append([]int{}, path...))
@@ -80,11 +81,13 @@ func combinationSum(candidates []int, target int) (output [][]int) {
 			// 选择当前数字
 			path = append(path, candidates[i])
 
+			fmt.Println("回朔之前:", "path:", path, "target:", target)
 			// 继续从i开始搜索（允许重复使用当前数字），目标值减去当前数字
 			backtrace(i, path, target-candidates[i])
 
 			// 回溯，撤销选择
 			path = path[:len(path)-1]
+			fmt.Println("回朔之后:", "path:", path, "target:", target)
 		}
 	}
 

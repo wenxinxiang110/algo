@@ -48,7 +48,7 @@ package main
 // Related Topics 设计 字典树 哈希表 字符串 👍 1919 👎 0
 
 // leetcode submit region begin(Prohibit modification and deletion)
-type Trie struct {
+/*type Trie struct {
 	children [26]*Trie
 	isEnd    bool
 }
@@ -106,7 +106,7 @@ func (this *Trie) StartsWith(prefix string) bool {
 	}
 	return true
 }
-
+*/
 /**
  * Your Trie object will be instantiated and called as such:
  * obj := Constructor();

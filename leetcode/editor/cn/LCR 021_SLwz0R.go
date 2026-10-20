@@ -59,6 +59,27 @@ package main
  * }
  */
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	return removeNthFromEndDoublePoint(head, n)
+}
+
+// 双指针解法
+func removeNthFromEndDoublePoint(head *ListNode, n int) *ListNode {
+	fakeHeader := &ListNode{Next: head}
+	fast := fakeHeader
+	for i := 0; i < n; i++ {
+		fast = fast.Next
+	}
+	slow := fakeHeader
+	for fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next
+	}
+	slow.Next = slow.Next.Next
+	return fakeHeader.Next
+}
+
+// 通常解法
+func removeNthFromEndNormal(head *ListNode, n int) *ListNode {
 	l := length(head)
 	if l < n {
 		return head

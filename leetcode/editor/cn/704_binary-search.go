@@ -30,7 +30,7 @@ package main
 // Related Topics 数组 二分查找 👍 1619 👎 0
 
 // leetcode submit region begin(Prohibit modification and deletion)
-func search(nums []int, target int) int {
+/*func search(nums []int, target int) int {
 	var left, right = 0, len(nums) - 1
 	for left <= right {
 		mid := (left + right) / 2
@@ -44,7 +44,7 @@ func search(nums []int, target int) int {
 
 	}
 	return -1
-}
+}*/
 
 //leetcode submit region end(Prohibit modification and deletion)
 

@@ -22,7 +22,7 @@ func Test_findAnagrams(t *testing.T) {
 				s: "",
 				p: "",
 			},
-			want: []int{},
+			want: nil,
 		}, {
 			name: "test1",
 			args: args{

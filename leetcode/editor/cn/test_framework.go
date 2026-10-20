@@ -1,11 +1,6 @@
 package main
 
-import (
-	"fmt"
-	"reflect"
-	"testing"
-)
-
+/*
 // TestCase 表示一个测试用例
 type TestCase struct {
 	Name     string
@@ -120,7 +115,8 @@ func LRUCacheTestRunner() *TestRunner {
 	}
 
 	return NewTestRunner(func(capacity int) interface{} {
-		return Constructor(capacity)
+		cache := Constructor(capacity)
+		return &cache
 	}, methodMap)
 }
 
@@ -208,3 +204,4 @@ func PrintTestCase(tc TestCase) {
 	fmt.Printf("期望输出: %v\n", tc.Expected)
 	fmt.Println("---")
 }
+*/

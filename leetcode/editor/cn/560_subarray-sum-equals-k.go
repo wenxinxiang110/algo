@@ -34,9 +34,9 @@ package main
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func subarraySum(nums []int, k int) (count int) {
-	if len(nums) == 0 {
-		return 0
-	}
+	//if len(nums) == 0 {
+	//	return 0
+	//}
 	pres := 0
 	mp := make(map[int]int)
 	mp[0] = 1
