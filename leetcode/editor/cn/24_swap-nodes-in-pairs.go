@@ -45,10 +45,35 @@ package main
  * }
  */
 func swapPairs(head *ListNode) *ListNode {
+	return swapPairsDirect(head)
+}
+
+func swapPairEasy(head *ListNode) *ListNode {
 	var iter = &ListNode{Next: head}
 	var newHead = iter
 	for iter.Next != nil && iter.Next.Next != nil {
-		iter, iter.Next, iter.Next.Next, iter.Next.Next.Next = iter.Next, iter.Next.Next, iter.Next.Next.Next, iter.Next
+		iter, iter.Next, iter.Next.Next, iter.Next.Next.Next =
+			iter.Next, iter.Next.Next, iter.Next.Next.Next, iter.Next
+	}
+	return newHead.Next
+}
+
+func swapPairsDirect(head *ListNode) *ListNode {
+	var iter = &ListNode{Next: head}
+	var newHead = iter
+	for iter.Next != nil && iter.Next.Next != nil {
+		// 1. 记录 第二个 ele 位置
+		tmp := iter.Next.Next
+		// 2. 记录 下一组位置
+		tmp2 := iter.Next.Next.Next
+		// 断开第一个元素的指针，指向下一组
+		iter.Next.Next = tmp2
+		// 断开第二个的指针，指回第一个
+		tmp.Next = iter.Next
+		// 上一组(哨兵)指回新头 B，保证整条链不断
+		iter.Next = tmp
+		// iter进入到下一组（移动到本组交换后的尾节点 A）
+		iter = tmp.Next
 	}
 	return newHead.Next
 }
