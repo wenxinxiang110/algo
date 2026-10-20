@@ -48,17 +48,18 @@ package main
 
 //leetcode submit region end(Prohibit modification and deletion)
 
+// 二分查找重要的是区间，左闭右闭即[left, right]，或者左闭右开即[left, right)
 func binarySearch(nums []int, target int) int {
 	var left, right = 0, len(nums) - 1
-	for left != right {
+	// 左闭右闭区间 [left, right]，循环条件 left <= right
+	for left <= right {
 		mid := (left + right) / 2
 		if nums[mid] < target {
-			left = mid
-			continue
+			left = mid + 1
 		} else if nums[mid] == target {
 			return mid
 		} else if nums[mid] > target {
-			right = mid
+			right = mid - 1
 		}
 	}
 	return -1
