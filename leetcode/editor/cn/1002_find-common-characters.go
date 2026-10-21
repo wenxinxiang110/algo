@@ -33,6 +33,10 @@ package main
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func commonChars(words []string) []string {
+	return commonCharsV2(words)
+}
+
+func commonCharsV1(words []string) []string {
 	if len(words) == 0 {
 		return []string{}
 	}
@@ -58,6 +62,41 @@ func commonChars(words []string) []string {
 	var result []string
 	for i := 0; i < 26; i++ {
 		for ; table[0][i] > 0; table[0][i]-- {
+			result = append(result, string(rune('a'+i)))
+		}
+	}
+
+	return result
+}
+
+// v1基础上优化空间复杂度为 O(1)
+func commonCharsV2(words []string) []string {
+	if len(words) == 0 {
+		return []string{}
+	}
+	var first = [26]int{}
+
+	// set first
+	// 第一行也可以用来记录整体的字符出现的最小次数
+	for _, r := range words[0] {
+		first[r-'a']++
+	}
+
+	var other = [26]int{}
+	// set next
+	for i := 1; i < len(words); i++ {
+		for _, r := range []rune(words[i]) {
+			other[r-'a']++
+		}
+		for j := 0; j < 26; j++ {
+			first[j] = min(first[j], other[j])
+			other[j] = 0
+		}
+	}
+
+	var result []string
+	for i := 0; i < 26; i++ {
+		for ; first[i] > 0; first[i]-- {
 			result = append(result, string(rune('a'+i)))
 		}
 	}

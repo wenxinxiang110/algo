@@ -14,7 +14,6 @@ func Test_commonChars(t *testing.T) {
 		args args
 		want []string
 	}{
-		// TODO: Add test cases.
 		{
 			name: "test1",
 			args: args{words: []string{"bella", "label", "roller"}},
