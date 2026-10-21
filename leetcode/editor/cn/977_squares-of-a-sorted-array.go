@@ -45,25 +45,8 @@ package main
 // leetcode submit region begin(Prohibit modification and deletion)
 
 func sortedSquares(nums []int) []int {
-	var merge = make([]int, len(nums))
-	var mergeIdx = len(nums) - 1
-	var neg, pos = 0, len(nums) - 1
-	for neg <= pos {
-		negS := nums[neg] * nums[neg]
-		posS := nums[pos] * nums[pos]
-		if negS < posS {
-			merge[mergeIdx] = posS
-			pos--
-		} else {
-			merge[mergeIdx] = negS
-			neg++
-		}
-		mergeIdx--
-	}
-	return merge
+	return sortedSquaresV2(nums)
 }
-
-//leetcode submit region end(Prohibit modification and deletion)
 
 func sortedSquaresV1(nums []int) []int {
 	// 找到分界点，拆分开负数和正数
@@ -111,14 +94,16 @@ func sortedSquaresV1(nums []int) []int {
 	return merge
 }
 
+// 双指针方法，从数组两端同时出发，这两个数的平方里有一个是最大的
 func sortedSquaresV2(nums []int) []int {
 	var merge = make([]int, len(nums))
-	var mergeIdx = len(nums) - 1
+	// 从 merge数组的最后一位出发
+	var mergeIdx = len(merge) - 1
 	var neg, pos = 0, len(nums) - 1
 	for neg <= pos {
 		negS := nums[neg] * nums[neg]
 		posS := nums[pos] * nums[pos]
-		if negS < posS {
+		if negS <= posS {
 			merge[mergeIdx] = posS
 			pos--
 		} else {
@@ -129,3 +114,5 @@ func sortedSquaresV2(nums []int) []int {
 	}
 	return merge
 }
+
+//leetcode submit region end(Prohibit modification and deletion)
