@@ -67,13 +67,42 @@ package main
  * }
  */
 func detectCycle(head *ListNode) *ListNode {
+	return detectCycleDoublePtr(head)
+}
 
+// detectCycleDoublePtr 使用双指针（快慢指针）解法，空间复杂度 O(1)，满足进阶要求。
+//
+// 思路分两步：
+//
+// 第一步：判断是否有环，并找到快慢指针的「第一次相遇点」。
+//   - 慢指针 slow 每次走 1 步，快指针 fast 每次走 2 步。
+//   - 若链表无环，fast 会先到达链表末尾（fast 或 fast.Next 为 nil），循环结束返回 nil。
+//   - 若有环，由于 fast 比 slow 快，两者终会在环内相遇（fast 在环里「套圈」slow）。
+//
+// 第二步：推导环的入口节点。这是本解法的核心，下面给出数学证明：
+//   - 设：链表头到环入口的距离为 a；环入口到相遇点的距离为 b；相遇点再绕回环入口的距离为 c。
+//     则环的总长为 b + c。
+//   - 相遇时，慢指针走过的总路程 = a + b（在环里可能绕了若干圈，但慢指针第一次被追上时最多绕不到一圈，
+//     这里按 a + b 计算即可，绕圈部分可被下面的等式消掉）。
+//   - 快指针走过的总路程 = a + b + n*(b + c)，其中 n 是快指针在环里多绕的圈数（n >= 1）。
+//   - 又因为 fast 速度是 slow 的 2 倍，所以「快指针路程 = 2 * 慢指针路程」：
+//     a + b + n*(b + c) = 2*(a + b)
+//     化简得：
+//     a = n*(b + c) - b = (n - 1)*(b + c) + c
+//   - 这个式子的含义是：从链表头走 a 步，等于「从相遇点走 c 步，再绕环 (n-1) 圈」。
+//     无论从相遇点怎么绕完整的环，最终都会回到相遇点后再走 c 步到达环入口。
+//
+// 因此，让两个指针分别从「链表头 head」和「相遇点 slow」出发，每次各走 1 步，
+// 它们必然在「环入口」第一次相遇（此时 idx1 == idx2 且恰好走了 a 步 / c+(n-1)圈 步），
+// 该节点就是环的入口，直接返回即可。
+func detectCycleDoublePtr(head *ListNode) *ListNode {
 	var fast, slow = head, head
 	for fast != nil && fast.Next != nil {
 		slow = slow.Next
 		fast = fast.Next.Next
 		if slow == fast {
-			// 根据算法推导出来的，
+			// 已确认有环且 slow、fast 在环内相遇，
+			// 分别从头节点和相遇点同步前进，二者必在环入口相遇。
 			var idx1, idx2 = head, slow
 			for idx1 != idx2 {
 				idx1 = idx1.Next
@@ -81,6 +110,18 @@ func detectCycle(head *ListNode) *ListNode {
 			}
 			return idx1
 		}
+	}
+	return nil
+}
+
+// hash表，第一个出现的就是环的入口
+func detectCycleHash(head *ListNode) *ListNode {
+	var hash = make(map[*ListNode]struct{})
+	for head != nil {
+		if _, ok := hash[head]; ok {
+			return head
+		}
+		hash[head] = struct{}{}
 	}
 	return nil
 }
