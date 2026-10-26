@@ -35,6 +35,11 @@ package main
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func strStr(haystack string, needle string) int {
+	return strStrMyself(haystack, needle)
+}
+
+// 查找，基于前缀表带偏移-1
+func strStrByNextOffset(haystack string, needle string) int {
 	if len(needle) == 0 {
 		return 0
 	}
@@ -83,6 +88,62 @@ func Next(s string) []int {
 	}
 
 	return table
+}
+
+/*自己实现版本*/
+
+func strStrMyself(haystack string, needle string) (idx int) {
+	if len(needle) == 0 {
+		return
+	}
+	h := []byte(haystack)
+	n := []byte(needle)
+	// 构建前缀表
+	prefixTable := myPrefixTable([]byte(needle))
+	var j = 0
+	// 在 haystack中查找对应字符串
+	for i := 0; i < len(haystack); i++ {
+		// 2. 不相等就要回退了
+		for h[i] != n[j] && j > 0 {
+			j = prefixTable[j-1]
+		}
+		// 1. 最简单的情况，如果相等，就直接加1，继续匹配下一位
+		if h[i] == n[j] {
+			j++
+		}
+		if j == len(needle) {
+			return i - j + 1
+		}
+	}
+
+	// 没找到，返回-1
+	return -1
+}
+
+// 前缀表
+func myPrefixTable(s []byte) (table []int) {
+	if len(s) == 0 {
+		return
+	}
+	table = make([]int, len(s))
+	// j是最长公共前后缀的长度，一开始的时候肯定是为0的
+	var j = 0
+	table[0] = j
+	// 填充 table
+
+	for i := 1; i < len(s); i++ {
+		// 2. 不相同的话，回退到
+		for s[i] != s[j] && j > 0 {
+			// 回跳到对应位置， table[j-1]是截止到前一个匹配位置，公共前后缀的长度
+			j = table[j-1]
+		}
+		// 1. 前面已经前后缀相同了，当前位置又是一样，直接+1
+		if s[i] == s[j] {
+			j++
+		}
+		table[i] = j
+	}
+	return
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
